@@ -2,7 +2,7 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var transactionSchema = new Schema({
-  memberid: String,
+  memberid: [{ type: Schema.Types.ObjectId, ref: 'Customer' }],
   days: String,
   out_date: Date,
   due_date: Date,

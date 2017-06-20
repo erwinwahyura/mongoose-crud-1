@@ -17,7 +17,10 @@ var add = function(req, res) {
 }
 
 var getAll = function(req, res) {
-  m_transaction.find({}).populate('booklist').exec(function(err, result) {
+  m_transaction.find({})
+  .populate('booklist')
+  .populate({path: 'memberid', select: 'name'})
+  .exec(function(err, result) {
     if(!err) {
       res.send(result)
     } else {
