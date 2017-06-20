@@ -56,10 +56,15 @@ var edit = function(req, res) {
   m_transaction.findById(query_find, function(err, result) {
     if (err) res.send(err);
     let temp = result.in_date = new Date()
-    if (temp.getDate() - result.due_date.getDate() !== 0) {
-      result.fine = ((result.in_date.getDate() - result.due_date.getDate())*5000)
-      var denda = result.fine;
-      console.log(result.fine);
+    if (temp.getDate() - result.due_date.getDate() !== 0 ) {
+      if(result.in_date.getDate() - result.due_date.getDate() < 0) {
+        var denda = 0
+      } else {
+        result.fine = ((result.in_date.getDate() - result.due_date.getDate())*5000)
+        var denda = result.fine;
+        console.log(result.fine);
+      }
+
     }
     var query_set = {memberid : result.memberid, days : result.days, out_date : result.out_date,
                      due_date : result.due_date}
